@@ -1,3 +1,4 @@
-KabelBoxCest.tryToTest.fail.html
-KabelBoxCest.tryToTest.fail.png
+KabelBoxCest.*.fail.html
+KabelBoxCest.*.fail.png
 failed
+debug/*

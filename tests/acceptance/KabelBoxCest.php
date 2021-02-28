@@ -49,7 +49,16 @@ class KabelBoxCest
 		$I->switchToIframe();//back to main
 		
 		$I->switchToIframe('#iframebasefrm');
-		$I->waitForElementVisible('#id_reboot', 30);
+		try{
+			$I->waitForElementVisible('#id_reboot', 30);
+		} catch (Exception $e) {
+			//try to click again, so as to refresh
+			$I->switchToIframe();//back to main
+			$I->switchToIframe('#iframeMenu');
+			$I->clickWithLeftButton('#idmenunodeconfiguration');
+			$I->switchToIframe();//back to main
+			$I->switchToIframe('#iframebasefrm');
+		}
 		$I->clickWithLeftButton('#id_reboot');
 
 		$I->wait(5);//wait for ajax calls
