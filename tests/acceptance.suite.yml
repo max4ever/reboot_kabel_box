@@ -15,15 +15,15 @@ modules:
             browser: firefox
             path: ''
             capabilities:
-                acceptInsecureCerts: true # allow self-signed certificates
                 "moz:firefoxOptions": 
-                    args: ["--headless", "--width=800", "--height=600"]
+                    args: ["--headless", "--width=1460", "--height=768"]
             "restart": true
 
 extensions:
     enabled:
         - Codeception\Extension\RunProcess:
             - geckodriver
+            - sleep 1
 
 
 step_decorators: ~        
