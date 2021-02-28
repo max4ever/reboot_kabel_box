@@ -1,0 +1,29 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+actor: AcceptanceTester
+modules:
+    enabled:
+        # - PhpBrowser:
+            # url: http://kabel.box/
+        - \Helper\Acceptance
+        - WebDriver:
+            url: 'http://kabel.box/'
+            browser: firefox
+            path: ''
+            capabilities:
+                acceptInsecureCerts: true # allow self-signed certificates
+                "moz:firefoxOptions": 
+                    args: ["--headless", "--width=800", "--height=600"]
+            "restart": true
+
+extensions:
+    enabled:
+        - Codeception\Extension\RunProcess:
+            - geckodriver
+
+
+step_decorators: ~        
