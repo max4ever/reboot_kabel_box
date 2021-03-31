@@ -21,7 +21,7 @@ extensions:
     enabled:
         - Codeception\Extension\RunProcess:
             - geckodriver
-            - sleep 1
+            - sleep 10
 
 
 step_decorators: ~        
