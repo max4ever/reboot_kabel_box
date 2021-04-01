@@ -10,18 +10,24 @@ modules:
         - \Helper\Acceptance
         - WebDriver:
             url: 'http://192.168.0.1/' # url: http://kabel.box/
-            browser: firefox
+            browser: chrome
             path: ''
             capabilities:
-                "moz:firefoxOptions": 
-                    args: ["--headless", "--width=1460", "--height=768"]
+                chromeOptions:
+                    args: [ "-proxy-server='direct://'", "--proxy-bypass-list=*", "--no-proxy-server", "--headless", "--disable-extensions", "--mute-audio"]
+                javascriptEnabled: true
             "restart": true
+            window_size: 1600x1200
+            clear_cookies: true
+            host: 127.0.0.1
+            port: 4444
+
 
 extensions:
     enabled:
         - Codeception\Extension\RunProcess:
-            - geckodriver
-            - sleep 10
+            - /usr/bin/chromedriver --port=4444
+            - sleep 10 #wait for the virtual browser to start
 
 
 step_decorators: ~        

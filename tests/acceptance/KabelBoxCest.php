@@ -30,7 +30,9 @@ class KabelBoxCest
 
 		try {
 			$I->dontSee('Please wait a few moments');
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
+			echo 'ERROR: Router too slow ' . $e->getMessage() . PHP_EOL;
+
 			$I->wait(60);//First admin page request, router is slow 
 			$I->reloadPage();
 			$I->waitForElementVisible('#iframebasefrm');
@@ -39,37 +41,21 @@ class KabelBoxCest
 
 		$I->waitForText('Enabled', 30, '#id_common_enable');//Wifi Status: Enabled
 		$I->waitForElementVisible('#modem_border', 30);
-		$I->click('#modem_border');
-		$I->switchToIframe();//back to main
-
-		$I->switchToIframe('#iframeMenu');
-		$I->waitForElementVisible('#idmenunodeconfiguration', 30);//==Configuration link
-
-		$I->clickWithLeftButton('#idmenunodeconfiguration');
-		$I->switchToIframe();//back to main
 		
-		$I->switchToIframe('#iframebasefrm');
-		try{
-			$I->waitForElementVisible('#id_reboot', 30);
-		} catch (Exception $e) {
-			//try to click again, so as to refresh
-			$I->switchToIframe();//back to main
-			$I->switchToIframe('#iframeMenu');
-			$I->clickWithLeftButton('#idmenunodeconfiguration');
-			$I->switchToIframe();//back to main
-			$I->switchToIframe('#iframebasefrm');
-		}
+		$I->amOnPage('/common_page/RgConfig.html');
+		$I->reloadPage();
+		$I->waitForElementVisible('#id_reboot', 30);
 		$I->clickWithLeftButton('#id_reboot');
 
-		$I->wait(5);//wait for ajax calls
+		$I->wait(15);//wait for ajax calls
 		$I->see('Rebooting System');
-		$I->makeScreenshot('proof_before_closing');
+		//$I->makeScreenshot('proof_before_closing' . date('Y-m-d H:i:s'));
 
-		$I->wait(30);//wait for ajax calls
-		$I->switchToIframe();//back to main
-		$I->click('Logout');//in case it just does nothing
-		$I->wait(1);
+		$I->amOnPage('index.html');
+		$I->waitForElementVisible('#id_common_logout');
+		$I->clickWithLeftButton('Logout');//in case it just does nothing
+		$I->wait(5);
 
-		$I->makeScreenshot('the_end');
+		$I->makeScreenshot('the_end' . date('Y-m-d H:i:s'));
     }
 }
