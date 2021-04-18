@@ -39,7 +39,7 @@ class KabelBoxCest
 			$I->switchToIframe('#iframebasefrm');
 		}
 
-		$I->waitForText('Enabled', 30, '#id_common_enable');//Wifi Status: Enabled
+		//$I->waitForText('Good', 30, '#id_status_moden_text1');//Modem Status: Good
 		$I->waitForElementVisible('#modem_border', 30);
 		
 		$I->amOnPage('/common_page/RgConfig.html');
